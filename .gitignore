@@ -13,8 +13,8 @@ undefined_funcs_auto.txt
 .cache
 build.ninja
 progress/
-iso/
-SLPS_150.17*
+orig/
+SCUS_972.58*
 
 compile_commands.json
 

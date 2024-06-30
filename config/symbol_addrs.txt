@@ -1,5 +1,4 @@
-func_00100000 = 0x00100000; // type:func
-func_00100010 = 0x00100010; // type:func
+_start = 0x00100010; // type:func
 .L00100134 = 0x00100134; 
 func_001001D0 = 0x001001D0; // type:func
 T_001001D8 = 0x001001D8; 
@@ -59897,7 +59896,7 @@ func_003AB440 = 0x003AB440; // type:func
 .L003AB47C = 0x003AB47C; 
 func_003AB490 = 0x003AB490; // type:func
 .L003AB4CC = 0x003AB4CC; 
-func_003AB4E0 = 0x003AB4E0; // type:func
+__tf6Option = 0x003AB4E0; // type:func
 .L003AB50C = 0x003AB50C; 
 func_003AB520 = 0x003AB520; // type:func
 .L003AB544 = 0x003AB544; 

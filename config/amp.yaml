@@ -39,6 +39,20 @@ segments:
       vram: 0x100000
       bss_size: 0x1147E6 # should be 1 byte less?
       subalign: null
-      subsegments: 
-        - [0x1000, asm, sdk/crt0]
+      subsegments:
+        - [0x1000, asm]
         # - [0x1200, asm, unk_0x00100200]
+
+    - name: vutext
+      type: databin
+      start: 0x2ac970
+      vram: 0x3ab970
+
+    - name: data
+      type: code
+      start: 0x2af480
+      vram: 0x3ae480
+      subalign: 4
+      subsegments:
+        - [0x2af480, data]
+        #- [0x2c9a98, data]
