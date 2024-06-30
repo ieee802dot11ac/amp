@@ -1,0 +1,44 @@
+name: Amplitude (Retail)
+sha1: 3a2e05f454ae36abc85da31225bc6968d8fb5548
+options:
+    # paths
+    basename: SCUS_972.58
+    target_path: orig/SCUS_972.58
+    base_path: ..
+    
+    asm_path: asm
+    src_path: src
+    build_path: build
+    
+    extensions_path: tools/splat_ext
+    symbol_addrs_path: config/symbol_addrs.txt
+    undefined_funcs_auto_path: config/undefined_funcs_auto.txt
+    undefined_syms_auto_path:  config/undefined_syms_auto.txt
+    
+    # compiler 
+    compiler: EEGCC
+    platform: ps2
+
+    ld_bss_contains_common: True
+    
+    string_encoding: ASCII
+    rodata_string_guesser_level: 2 # improve string detection
+    disasm_unknown: True
+    named_regs_for_c_funcs: False
+    gp_value: 0x43d070
+    # subalign: 4
+    include_macro_inc: no # don't write macro.inc to rodata files
+    
+    find_file_boundaries: False
+    section_order: [".text", ".data", ".rodata", ".sbss", ".bss"]
+segments:
+    - [0, databin, elf_header]
+    - name: main
+      type: code
+      start: 0x1000
+      vram: 0x100000
+      bss_size: 0x1147E6 # should be 1 byte less?
+      subalign: null
+      subsegments: 
+        - [0x1000, asm, sdk/crt0]
+        # - [0x1200, asm, unk_0x00100200]
