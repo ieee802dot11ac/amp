@@ -90,13 +90,14 @@ def build_stuff(linker_entries: List[LinkerEntry]):
     ninja = ninja_syntax.Writer(open(str(ROOT / "build.ninja"), "w"), width=9999)
 
     # Rules
-    cross = f"mips64r5900el-ps2-elf-" # "does this mean we depend on ps2dev?" yes, it does!
+    cross = f"tools/mips-ps2-decompals-" # "does this mean we depend on ps2dev?" yes, it does!
+    crossld = f"mips64r5900el-ps2-elf-"
     ld_args = f"-EL -T config/undefined_syms_auto.txt -T config/undefined_funcs_auto.txt -T config/undefined_syms.txt -Map $mapfile -T $in -o $out"
 
     ninja.rule(
         "as",
         description="as $in",
-        command=f"cpp {COMMON_INCLUDES} $in -o - | {cross}as -no-pad-sections -EL -march=r5900 -32 -Iinclude -o $out && python3 tools/buildtools/elf_patcher.py $out gas",
+        command=f"cpp {COMMON_INCLUDES} $in -o - | {cross}as -no-pad-sections -EL -march=r5900 -Iinclude -o $out && python3 tools/buildtools/elf_patcher.py $out gas",
     )
 
     ninja.rule(
@@ -114,7 +115,7 @@ def build_stuff(linker_entries: List[LinkerEntry]):
     ninja.rule(
         "ld",
         description="link $out",
-        command=f"{cross}ld {ld_args}",
+        command=f"{crossld}ld {ld_args}",
     )
 
     ninja.rule(
