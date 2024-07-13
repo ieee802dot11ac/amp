@@ -29,8 +29,8 @@ PRE_ELF_PATH = f"build/{BASENAME}.elf"
 COMMON_INCLUDES = "-Iinclude -Isrc -isystem include/sdk/ee -isystem include/sdk -isystem include/gcc -isystem include/gcc/gcc-lib"
 COMPILER_DIR = f"{TOOLS_DIR}/cc/sn-gcc-2.95/bin"
 
-COMPILER_FLAGS     = "-O2"
-COMPILER_FLAGS_CPP = "-O2 -x c++ -fno-exceptions"
+COMPILER_FLAGS     = "-O2 -G0"
+COMPILER_FLAGS_CPP = "-O2 -G0 -x c++ -fno-exceptions"
 
 WIBO = f"{TOOLS_DIR}/wibo" if os.name != "nt" else ""
 
@@ -59,21 +59,6 @@ def clean():
     shutil.rmtree("asm", ignore_errors=True)
     shutil.rmtree("assets", ignore_errors=True)
     shutil.rmtree("build", ignore_errors=True)
-
-
-def write_permuter_settings():
-    with open("permuter_settings.toml", "w") as f:
-        f.write(
-            f"""compiler_command = "tools/cc/ee-gcc2.96/bin/ee-gcc -c -Iinclude -Iinclude/sdk/ee -Iinclude/gcc -Iinclude/gcc/gcc-lib -O2 -G8 -gstabs -D__GNUC__"
-assembler_command = "mips-linux-gnu-as -march=r5900 -mabi=eabi -Iinclude"
-compiler_type = "gcc"
-
-[preserve_macros]
-
-[decompme.compilers]
-"tools/cc/ee-gcc2.96/bin/ee-gcc" = "ee-gcc2.9-991111-01"
-"""
-        )
 
 
 def build_stuff(linker_entries: List[LinkerEntry]):
@@ -111,7 +96,7 @@ def build_stuff(linker_entries: List[LinkerEntry]):
     ninja.rule(
         "as",
         description="as $in",
-        command=f"cpp {COMMON_INCLUDES} $in -o - | {cross}as -no-pad-sections -EL -march=5900 -Iinclude -o $out && python3 tools/buildtools/elf_patcher.py $out gas",
+        command=f"cpp {COMMON_INCLUDES} $in -o - | {cross}as -no-pad-sections -EL -march=r5900 -32 -Iinclude -o $out && python3 tools/buildtools/elf_patcher.py $out gas",
     )
 
     ninja.rule(
@@ -216,8 +201,6 @@ if __name__ == "__main__":
     linker_entries = split.linker_writer.entries
 
     build_stuff(linker_entries)
-
-    write_permuter_settings()
 
     if not os.path.isfile("compile_commands.json"):
         exec_shell(["ninja", "-t", "compdb"], open("compile_commands.json", "w"))
