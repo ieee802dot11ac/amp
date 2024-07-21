@@ -90,8 +90,8 @@ def build_stuff(linker_entries: List[LinkerEntry]):
     ninja = ninja_syntax.Writer(open(str(ROOT / "build.ninja"), "w"), width=9999)
 
     # Rules
-    cross = f"tools/mips-ps2-decompals-" # "does this mean we depend on ps2dev?" yes, it does!
-    crossld = f"mips64r5900el-ps2-elf-"
+    cross = f"tools/mips-ps2-decompals-" # TODO autograb latest decompals binutils
+    crossld = f"mipsel-elf-" # !!!!! JANK ALERT JANK ALERT
     ld_args = f"-EL -T config/undefined_syms_auto.txt -T config/undefined_funcs_auto.txt -T config/undefined_syms.txt -Map $mapfile -T $in -o $out"
 
     ninja.rule(
@@ -103,13 +103,13 @@ def build_stuff(linker_entries: List[LinkerEntry]):
     ninja.rule(
         "cpp",
         description="cpp $in",
-        command=f"{COMPILE_CMD_CPP} $in -o $out && {cross}strip.exe $out -N dummy-symbol-name",
+        command=f"{COMPILE_CMD_CPP} $in -o $out && {cross}strip $out -N dummy-symbol-name",
     )
 
     ninja.rule(
         "cc",
         description="cc $in",
-        command=f"{COMPILE_CMD} $in -o $out && {cross}strip.exe $out -N dummy-symbol-name",
+        command=f"{COMPILE_CMD} $in -o $out && {cross}strip $out -N dummy-symbol-name",
     )
 
     ninja.rule(

@@ -3089,7 +3089,7 @@ segments:
       vram: 0x3d7180
       subalign: 8
       subsegments:
-        - [0x2d8180, data]
+        - [0x2d8180, rodata]
 
     - name: randomfuncs # ???
       type: code
@@ -3104,11 +3104,13 @@ segments:
       vram: 0x42e860
       subalign: 8
       subsegments:
-        - [0x32f860, data]
+        - [0x32f860, rodata]
 
     - name: gcc_except_table
       type: databin
       start: 0x335f80
       vram: 0x434f80
+
+    - [0x338bb4, databin] # all the DVP garbage
 
     - [0x3392D0]
