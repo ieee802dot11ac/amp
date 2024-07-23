@@ -26,11 +26,11 @@ ELF_PATH = f"build/{BASENAME}"
 MAP_PATH = f"build/{BASENAME}.map"
 PRE_ELF_PATH = f"build/{BASENAME}.elf"
 
-COMMON_INCLUDES = "-Iinclude -Isrc -isystem include/sdk/ee -isystem include/sdk -isystem include/gcc -isystem include/gcc/gcc-lib"
-COMPILER_DIR = f"{TOOLS_DIR}/cc/sn-gcc-2.95/bin"
+COMMON_INCLUDES = "-Isrc -isystem src -isystem src/sdk/ee -isystem src/sdk -isystem src/gcc -isystem src/gcc/gcc-lib"
+COMPILER_DIR = f"{TOOLS_DIR}/cc/ee-gcc2.95.3-136/bin"
 
-COMPILER_FLAGS     = "-O2 -G0"
-COMPILER_FLAGS_CPP = "-O2 -G0 -x c++ -fno-exceptions"
+COMPILER_FLAGS     = "-O4 -G0"
+COMPILER_FLAGS_CPP = "-O4 -G0 -x c++ -fno-exceptions"
 
 WIBO = f"{TOOLS_DIR}/wibo" if os.name != "nt" else ""
 
@@ -92,12 +92,12 @@ def build_stuff(linker_entries: List[LinkerEntry]):
     # Rules
     cross = f"tools/mips-ps2-decompals-" # TODO autograb latest decompals binutils
     crossld = f"mipsel-elf-" # !!!!! JANK ALERT JANK ALERT
-    ld_args = f"-EL -T config/undefined_syms_auto.txt -T config/undefined_funcs_auto.txt -T config/undefined_syms.txt -Map $mapfile -T $in -o $out"
+    ld_args = f"-EL -T config/undefined_syms_auto.txt -T config/undefined_funcs_auto.txt -T config/undefined_syms.txt -Map $mapfile -T $in -o $out --no-check-sections          "
 
     ninja.rule(
         "as",
         description="as $in",
-        command=f"cpp {COMMON_INCLUDES} $in -o - | {cross}as -no-pad-sections -EL -march=r5900 -Iinclude -o $out && python3 tools/buildtools/elf_patcher.py $out gas",
+        command=f"cpp {COMMON_INCLUDES} $in -o - | {cross}as -no-pad-sections -EL -march=r5900 -Isrc -o $out && python3 tools/buildtools/elf_patcher.py $out gas",
     )
 
     ninja.rule(
