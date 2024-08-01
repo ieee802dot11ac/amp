@@ -4,7 +4,9 @@ Currently uses NTSC-U/C retail, as symbolized debugs are not currently available
 
 ### Requirements setup
 1. Obtain `mipsel-elf-ld` from your distro's package manager. (ubuntu: `binutils-mips-linux-gnu`, arch: `aur/mipsel-elf-binutils`)
-3. `python3 -m pip install -U -r requirements.txt` (invoking is not intelligent! use `--break-system-packages` if on arch)
+2. Locate a copy of SN GCC 2.95.3 and place it in `tools/cc/ee-gcc2.95.3-136`.
+3. (if on linux) Locate a copy of [wibo](https://github.com/decompals/wibo] and place it in `tools/`.
+4. `python3 -m pip install -U -r requirements.txt` (invoking is not intelligent! use `--break-system-packages` if on arch)
 
 *Note: For compiling, you need to add the `i386` architecture. For instructions on that please check out [this guide](https://askubuntu.com/questions/454253/how-to-run-32-bit-app-in-ubuntu-64-bit) if you're on Ubuntu.*
 
