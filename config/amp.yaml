@@ -30,7 +30,31 @@ options:
     include_macro_inc: no # don't write macro.inc to rodata files
     
     find_file_boundaries: False
-    section_order: [".text", ".data", ".rodata", ".sbss", ".bss"]
+    section_order: [
+      ".text",
+      ".vutext",
+      ".reginfo",
+      ".DVP.ovlytab",
+      ".DVP.ovlystrtab",
+      ".DVP.overlay..0x31f0.3155.38.0",
+      ".DVP.overlay..0x39f0.42923.557.1",
+      ".DVP.overlay..0x2d40.3155.41.2",
+      ".DVP.overlay..0x2890.3155.44.3",
+      ".DVP.overlay..0x2840.3155.47.4",
+      ".DVP.overlay..0x1ee0.3155.50.5",
+      ".DVP.overlay..0x1eb8.3155.53.6",
+      ".DVP.overlay..0x1b98.3155.56.7",
+      ".DVP.overlay..0x1300.3155.59.8",
+      ".DVP.overlay..0x360.3155.62.9",
+      ".DVP.overlay..0xb60.385531.363.10",
+      ".DVP.overlay..0xdd0.3155.81.11",
+      ".DVP.overlay..0xab0.3155.84.12",
+      ".data",
+      ".rodata",
+      ".gcc_except_table",
+      ".sbss",
+      ".bss"
+      ]
 segments:
     - [0, databin, elf_header]
     - name: main
@@ -1889,7 +1913,7 @@ segments:
         - [0x19EBC8, asm]
         - [0x19EE58, asm]
         - [0x19EF28, asm]
-        - [0x19F0A8, cpp, utl/PrnStream]
+        - [0x19F0A8, asm, utl/PrnStream]
         - [0x19F448, asm] 
         - [0x19F628, asm]
         - [0x19F6C8, asm]
@@ -3065,51 +3089,18 @@ segments:
         - [0x2ABF98, asm]
         - [0x2AC248, asm]
         - [0x2AC708, asm]
-
-    - name: vutext
-      type: databin
-      start: 0x2ac970 
-      vram: 0x3ab970
-
-    - name: data
-      type: code
-      start: 0x2af480
-      vram: 0x3ae480
-      subalign: 4
-      subsegments:
-        - [0x2af480, data]
-        - [0x2c9a98, data]
-
-    - name: rodata
-      type: code
-      start: 0x2d8180
-      vram: 0x3d7180
-      subalign: 8
-      subsegments:
-        - [0x2d8180, rodata]
-        #- [0x3209c8, .rodata, utl/PrnStream.cpp]
-        - [0x3209e0, rodata]
-
-    - name: randomfuncs # ???
-      type: code
-      start: 0x32ef00
-      vram: 0x42df00
-      subsegments:
+        # .vutext
+        - [0x2AC970, databin, vutext]
+        # .data
+        - [0x2AF480, data]
+        - [0x2C9A98, data]
+        # .rodata + those weird funcs
+        - [0x2D8180, rodata]
         - [0x32EF00, asm]
-
-    - name: rodata2
-      type: code
-      start: 0x32f860
-      vram: 0x42e860
-      subalign: 8
-      subsegments:
-        - [0x32f860, rodata]
-
-    - name: gcc_except_table
-      type: databin
-      start: 0x335f80
-      vram: 0x434f80
-
-    - [0x338bb4, databin] # all the DVP garbage
+        - [0x32F860, rodata]
+        # .gcc_except_table
+        - [0x335F80, databin, gcc_except_table]
+        # all the DVP garbage
+        - [0x338BB4, databin] 
 
     - [0x3392D0]
