@@ -23,7 +23,7 @@
         ".section .rodata\n"                                              \
         "\t.include \"asm/" BASE_FOLDER "/" FOLDER "/" #NAME ".s\"\n"     \
         ".section .text");
-#define INCLUDE_RODATA(TYPE, FOLDER, NAME, ARGS...) INCLUDE_RODATA_INTERNAL(TYPE, "nonmatchings", FOLDER, NAME, ARGS)
+#define INCLUDE_RODATA(TYPE, FOLDER, NAME, ARGS...) INCLUDE_RODATA_INTERNAL(TYPE, "data", FOLDER, NAME, ARGS)
 #endif
 
 __asm__(".include \"src/macro.inc\"\n");

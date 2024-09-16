@@ -92,7 +92,7 @@ def build_stuff(linker_entries: List[LinkerEntry]):
     # Rules
     cross = f"tools/mips-ps2-decompals-" # TODO autograb latest decompals binutils
     crossld = f"mipsel-elf-" # !!!!! JANK ALERT JANK ALERT
-    ld_args = f"-EL -T config/undefined_syms_auto.txt -T config/undefined_funcs_auto.txt -T config/undefined_syms.txt -Map $mapfile -T $in -o $out --no-check-sections          "
+    ld_args = f"-EL -T config/undefined_syms_auto.txt -T config/undefined_funcs_auto.txt -T config/undefined_syms.txt -Map $mapfile -T $in -o $out --no-check-sections"
 
     ninja.rule(
         "as",

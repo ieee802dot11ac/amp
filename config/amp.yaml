@@ -9,6 +9,7 @@ options:
     asm_path: asm
     src_path: src
     build_path: build
+    nonmatchings_path: asm/nonmatchings
     
     extensions_path: tools/splat_ext
     symbol_addrs_path: config/symbol_addrs.txt
@@ -28,6 +29,7 @@ options:
     gp_value: 0x43d070
     # subalign: 4
     include_macro_inc: no # don't write macro.inc to rodata files
+    use_legacy_include_asm: True
     
     find_file_boundaries: False
     section_order: [
@@ -64,7 +66,7 @@ segments:
       bss_size: 0x1147E6 # should be 1 byte less?
       subalign: null
       subsegments:
-        - [0x1000, asm, unk_0x00100000]
+        - [0x1000, asm, crt0]
         - [0x1200, asm, unk_0x00100200]
         - [0x1430, asm]
         - [0x19E0, asm]
@@ -3096,11 +3098,13 @@ segments:
         - [0x2C9A98, data]
         # .rodata + those weird funcs
         - [0x2D8180, rodata]
-        - [0x32EF00, asm]
+        - [0x3209c8, rodata, utl/PrnStream]
+        - [0x3209e0, rodata]
+        - [0x32EF00, asm, randomfuncs]
         - [0x32F860, rodata]
         # .gcc_except_table
         - [0x335F80, databin, gcc_except_table]
         # all the DVP garbage
-        - [0x338BB4, databin] 
+        - [0x338BB4, databin]
 
     - [0x3392D0]
