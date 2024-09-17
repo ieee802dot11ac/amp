@@ -1,8 +1,6 @@
 #include "../common.h" // ?????
 #include "PrnStream.h"
 
-INCLUDE_RODATA(const s32, "utl", PrnStream.rodata)
-
 INCLUDE_ASM(const s32, "utl/PrnStream", func_0029E0A8);
 INCLUDE_ASM(const s32, "utl/PrnStream", func_0029E100);
 INCLUDE_ASM(const s32, "utl/PrnStream", func_0029E128);
@@ -38,16 +36,16 @@ PrnStream& PrnStream::operator<<(const char* c) {
     return *this;
 }
 
-//INCLUDE_ASM(const s32, "utl/PrnStream", func_0029E448);
+INCLUDE_ASM(const s32, "utl/PrnStream", func_0029E448);
 
 //INCLUDE_ASM(const s32, "utl/PrnStream", __ls__9PrnStreamb);
-/*PrnStream& PrnStream::operator<<(bool b) {
+PrnStream& PrnStream::operator<<(bool b) {
     Print(b ? "true" : "false");
     return *this;
-}*/
+}
 
 //INCLUDE_ASM(const s32, "utl/PrnStream", Space__9PrnStreami);
-/*void PrnStream::Space(int i) {
+void PrnStream::Space(int i) {
     if (i != 0) {
         while (true) {
             i--;
@@ -55,4 +53,4 @@ PrnStream& PrnStream::operator<<(const char* c) {
             if (i == 0) break;
         }   
     }
-}*/
+}

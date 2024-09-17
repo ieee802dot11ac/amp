@@ -23,12 +23,8 @@ options:
     ld_bss_contains_common: False
     
     string_encoding: ASCII
-    rodata_string_guesser_level: 2 # improve string detection
-    disasm_unknown: True
     named_regs_for_c_funcs: False
     gp_value: 0x43d070
-    # subalign: 4
-    include_macro_inc: no # don't write macro.inc to rodata files
     use_legacy_include_asm: True
     
     find_file_boundaries: False
@@ -1915,7 +1911,7 @@ segments:
         - [0x19EBC8, asm]
         - [0x19EE58, asm]
         - [0x19EF28, asm]
-        - [0x19F0A8, asm, utl/PrnStream]
+        - [0x19F0A8, cpp, utl/PrnStream]
         - [0x19F518, asm]
         - [0x19F6C8, asm]
         - [0x19F748, asm]
@@ -3097,13 +3093,13 @@ segments:
         - [0x2C9A98, data]
         # .rodata + those weird funcs
         - [0x2D8180, rodata]
-        - [0x3209c8, rodata, utl/PrnStream]
+        - [0x3209c8, .rodata, utl/PrnStream]
         - [0x3209e0, rodata]
-        - [0x32EF00, asm, randomfuncs]
+        - [0x32EF00, rodatabin, randomfuncs] # has to be databin so as not to go into text (?!?!?!)
         - [0x32F860, rodata]
         # .gcc_except_table
-        - [0x335F80, databin, gcc_except_table]
+        - [0x335F80, rodatabin, gcc_except_table]
         # all the DVP garbage
-        - [0x338BB4, databin]
+        - [0x338BB0, rodatabin, dvp]
 
     - [0x3392D0]
