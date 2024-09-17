@@ -7,9 +7,8 @@ INCLUDE_ASM(const s32, "utl/PrnStream", func_0029E128);
 INCLUDE_ASM(const s32, "utl/PrnStream", func_0029E170);
 INCLUDE_ASM(const s32, "utl/PrnStream", Printf__9PrnStreamPCce);
 INCLUDE_ASM(const s32, "utl/PrnStream", __ls__9PrnStreamc);
-INCLUDE_ASM(const s32, "utl/PrnStream", func_0029E268);
-INCLUDE_ASM(const s32, "utl/PrnStream", func_0029E2A0);
-INCLUDE_ASM(const s32, "utl/PrnStream", func_0029E2D8);
+INCLUDE_ASM(const s32, "utl/PrnStream", __ls__9PrnStreams);
+INCLUDE_ASM(const s32, "utl/PrnStream", __ls__9PrnStreami);
 
 INCLUDE_ASM(const s32, "utl/PrnStream", __ls__9PrnStreamUc);
 /*PrnStream& PrnStream::operator<<(unsigned char c) {
@@ -35,8 +34,6 @@ PrnStream& PrnStream::operator<<(const char* c) {
     Print(c);
     return *this;
 }
-
-INCLUDE_ASM(const s32, "utl/PrnStream", func_0029E448);
 
 //INCLUDE_ASM(const s32, "utl/PrnStream", __ls__9PrnStreamb);
 PrnStream& PrnStream::operator<<(bool b) {

@@ -9,7 +9,7 @@ options:
     asm_path: asm
     src_path: src
     build_path: build
-    nonmatchings_path: asm/nonmatchings
+    nonmatchings_path: nonmatchings
     
     extensions_path: tools/splat_ext
     symbol_addrs_path: config/symbol_addrs.txt
